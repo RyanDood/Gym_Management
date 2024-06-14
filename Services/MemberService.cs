@@ -21,6 +21,19 @@ namespace Gym_Management.Services
         public async Task<Member> AddMember(AddNewMemberDTO addNewMemberDTO)
         {
             User user = new ConvertToUser(addNewMemberDTO).GetUser();
+            user.isAdmin = true;
+            Member member = new ConvertToMember(addNewMemberDTO).GetMember();
+            var addedUser = await _usersRepository.Add(user);
+            var userID = addedUser.UserID;
+            member.UserID = userID;
+            var addedMember = await _membersRepository.Add(member);
+            return addedMember;
+        }
+
+        public async Task<Member> AddMemberUser(AddNewMemberDTO addNewMemberDTO)
+        {
+            User user = new ConvertToUser(addNewMemberDTO).GetUser();
+            user.isAdmin = false;
             Member member = new ConvertToMember(addNewMemberDTO).GetMember();
             var addedUser = await _usersRepository.Add(user);
             var userID = addedUser.UserID;
@@ -36,7 +49,7 @@ namespace Gym_Management.Services
             {
                 throw new MemberNotFoundException($"Member ID {id} not found");
             }
-            await _usersRepository.Delete(id);
+            await _usersRepository.Delete(deletedMember.UserID);
             return deletedMember;
         }
 

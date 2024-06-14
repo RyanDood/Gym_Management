@@ -23,7 +23,7 @@ builder.Services.AddScoped<IRepository<int, User>, UserRepository>();
 builder.Services.AddScoped<IRepository<int, Member>, MemberRepository>();
 
 builder.Services.AddScoped<IMemberAdminService, MemberService>();
-//builder.Services.AddScoped<IBranchesAdminService, BranchesService>();
+builder.Services.AddScoped<IUserAdminService, UserService>();
 
 var app = builder.Build();
 

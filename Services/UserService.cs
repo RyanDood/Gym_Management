@@ -3,6 +3,7 @@ using Gym_Management.Interfaces;
 using Gym_Management.Mappers;
 using Gym_Management.Models;
 using Gym_Management.Models.DTOs;
+using System.Linq.Expressions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace Gym_Management.Services
@@ -18,24 +19,20 @@ namespace Gym_Management.Services
             _membersRepository = membersRepository;
         }
 
-        public Task<User> AddMember(AddNewMemberDTO addNewMemberDTO)
+        public async Task<LoginUserDTO> LoginUser(LoginUserDTO loginUserDTO)
         {
-            throw new NotImplementedException();
-        }
+            var allUsers = await _usersRepository.GetAll();
+            var foundedUser = allUsers.FirstOrDefault(user => user.UserName == loginUserDTO.UserName);
+            if (foundedUser == null)
+            {
+                throw new UserNameNotFoundException($"UserName {loginUserDTO.UserName} not found");
+            }
+            if(foundedUser.Password != loginUserDTO.Password)
+            {
+                throw new PasswordMismatchException("Incorrect Password Entered");  
+            }
+            return loginUserDTO;
 
-        public Task<User> DeleteUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> GetAllUsers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> GetUser(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

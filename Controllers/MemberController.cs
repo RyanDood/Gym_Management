@@ -46,13 +46,27 @@ namespace Gym_Management.Controllers
             }
         }
 
-        [Route("AddMember")]
+        [Route("AddMemberAdmin")]
         [HttpPost]
         public async Task<ActionResult<Member>> AddMember(AddNewMemberDTO addNewMemberDTO)
         {
             try
             {
                 return await _memberService.AddMember(addNewMemberDTO);
+            }
+            catch (MemberNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        [Route("AddMemberUser")]
+        [HttpPost]
+        public async Task<ActionResult<Member>> AddMemberUser(AddNewMemberDTO addNewMemberDTO)
+        {
+            try
+            {
+                return await _memberService.AddMemberUser(addNewMemberDTO);
             }
             catch (MemberNotFoundException e)
             {

@@ -5,6 +5,7 @@ namespace Gym_Management.Interfaces
 {
     public interface IMemberUserService
     {
+        public Task<Member> AddMemberUser(AddNewMemberDTO addNewMemberDTO);
         public Task<Member> GetMember(int id);
         public Task<Member> UpdateMember(UpdateMemberDTO updateMemberDTO);
     }
