@@ -97,7 +97,7 @@ function ViewMember(){
             <div className="smallBox18">
             <div className="upMargin3">
                         <Link to = "/allMembers">
-                            <div className="leftArrow change-my-color"></div>
+                            <div className="leftArrow yellow"></div>
                         </Link>
                         <div className="closeAccount">
                             <span onClick={confirm}>

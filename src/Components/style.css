@@ -102,6 +102,10 @@
     margin-top:10px;
 }
 
+.yellow{
+    filter: invert(63%) sepia(100%) saturate(399%) hue-rotate(9deg) brightness(97%) contrast(91%);
+}
+
 .smallBox22{
     display: flex;
     flex-direction: row;
@@ -270,7 +274,7 @@
 }
 
 .textDecoGreen{
-    color: rgb(49,198,109);
+    color: rgb(214, 185, 19);
     font-family: Nunito;
     font-weight: 300;
     font-size: 16px;
@@ -285,8 +289,8 @@
 }
 
 .highlight{
-    --bs-nav-link-color: rgb(49,198,109);
-    --bs-nav-link-hover-color: rgb(49,198,109);
+    --bs-nav-link-color: rgb(214, 185, 19);
+    --bs-nav-link-hover-color: rgb(214, 185, 19);
 }
 
 .enterDiv2 {
@@ -559,7 +563,7 @@ hr{
 }
 
 .errorText{
-    color: rgb(238 86 86);
+    color: rgb(226, 188, 21);
     font-family: Nunito;
     font-weight: 300;
     font-size: 14px;

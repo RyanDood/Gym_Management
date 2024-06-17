@@ -68,7 +68,7 @@ function Profile() {
 
 
     return (
-        <div className="smallBox17 col-sm-9">
+        <div className="smallBox17 col-sm-12">
             <div className="smallBox18">
                 <div className="upMargin3">
                     <div className="closeAccount">

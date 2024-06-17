@@ -21,7 +21,7 @@ function Member(props){
                 <div className="smallBox23">
                     <span className="clickRegisterText">Phone Number: {props.beneficiary.phone}</span>
                     <span className="pointer" onClick={updateAccountId}>
-                        <div className="rightArrow2 change-my-color"></div>
+                        <div className="rightArrow2 yellow"></div>
                     </span>
                 </div>
                 <span className="clickRegisterText">Membership expiration Date: {props.beneficiary.membershipExpiry}</span>
