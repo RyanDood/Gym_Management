@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import "../../../../src/Components/style.css"
 import { Link, useNavigate } from 'react-router-dom';
-import Beneficiary from '../Beneficiary/Beneficiary';
+import Member from '../Member/Member';
 
 function AllMembers(){
 
@@ -10,10 +10,6 @@ function AllMembers(){
     var [errorMessage,setErrorMessage]= useState("");
     var [beneficiaries,setBeneficiaries] = useState([]);
 
-    const token = sessionStorage.getItem('token');
-    const httpHeader = { 
-        headers: {'Authorization': 'Bearer ' + token}
-    };
 
     useEffect(() => {
         allBeneficiaries();
@@ -49,7 +45,7 @@ function AllMembers(){
                     </div> :
                     <div className="scrolling">
                         {beneficiaries.map(beneficiary =>
-                        <Beneficiary key = {beneficiary.beneficiaryID} beneficiary = {beneficiary}/>
+                        <Member key = {beneficiary.beneficiaryID} beneficiary = {beneficiary}/>
                         )}
                     </div>}
                 </div>
