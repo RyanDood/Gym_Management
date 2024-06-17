@@ -40,6 +40,7 @@ function Profile() {
         await axios.get('https://localhost:7173/api/Member/GetMember?memberID=' + memberID)
             .then(function (response) {
                 setProfile(response.data);
+                convertJoiningDate(response.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -65,6 +66,50 @@ function Profile() {
         var phoneNumber = eventargs.target.value;
         setProfile({ ...profile, phone: phoneNumber });
     }
+
+    function convertJoiningDate(data){
+        const date = new Date(data.dateOfJoining);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
+        const day = date.getDate().toString().padStart(2, '0');
+        const formattedDate =  year + "-" + month + "-" + day;
+        data.dateOfJoining = formattedDate;
+        convertExpiryDate(data);
+    }
+
+
+    function convertExpiryDate(data){
+        const date = new Date(data.membershipExpiry);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
+        const day = date.getDate().toString().padStart(2, '0');
+        const formattedDate =  year + "-" + month + "-" + day;
+        data.membershipExpiry = formattedDate;
+        setProfile(data);
+        dateDifference(data);
+    }
+
+    var count = 0;
+    
+    function dateDifference(data){
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
+        const day = date.getDate().toString().padStart(2, '0');
+        const formattedDate =  year + "-" + month + "-" + day;
+        console.log(formattedDate)
+        var date1 = new Date(data.membershipExpiry);
+        var date2 = new Date(formattedDate);
+        let differenceMs = date1 - date2; // Convert milliseconds difference to days 
+        console.log(differenceMs)
+        let differenceDays = differenceMs / (1000 * 60 * 60 * 24);
+        console.log(differenceDays);
+        if(differenceDays <= 7 && count == 0){
+            alert("Your membership is about to expire")
+            count++;
+        }
+    }
+
 
 
     return (

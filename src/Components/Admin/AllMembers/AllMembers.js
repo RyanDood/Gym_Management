@@ -37,6 +37,9 @@ function AllMembers(){
                         <li className="nav-item highlight smallBox23">
                             <Link className="nav-link textDecoWhite smallBox23" to="/addMembers">Add Member</Link>
                         </li>
+                        <li className="nav-item highlight smallBox23">
+                            <Link className="nav-link textDecoWhite smallBox23" to="/">Signout</Link>
+                        </li>
                     </ul>
                     {error ? 
                     <div className="smallBox48">

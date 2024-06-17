@@ -2,17 +2,24 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateAccountID } from "../../../accountSlice";
 
-function Member(props){
+function Member(props) {
 
     var dispatch = useDispatch();
     var navigate = useNavigate();
 
-    function updateAccountId(){
+    function updateAccountId() {
         navigate("/viewMember");
         dispatch(
             updateAccountID(props.beneficiary.memberID)
         );
     }
+
+    const date = new Date(props.beneficiary.membershipExpiry);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
+    const day = date.getDate().toString().padStart(2, '0');
+    const formattedDate = year + "-" + month + "-" + day;
+    props.beneficiary.membershipExpiry = formattedDate;
 
     return (
         <div className="whiteOutlineBox8">

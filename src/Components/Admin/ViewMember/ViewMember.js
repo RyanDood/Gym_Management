@@ -47,6 +47,7 @@ function ViewMember(){
         await axios.get('https://localhost:7173/api/Member/GetMember?memberID=' + memberID)
         .then(function (response) {
             setProfile(response.data);
+            convertJoiningDate(response.data);
         })
         .catch(function (error) {
             console.log(error);
@@ -90,6 +91,27 @@ function ViewMember(){
     function phoneValidation(eventargs){
         var phoneNumber = eventargs.target.value;
         setProfile({...profile,phone:phoneNumber});
+    }
+
+    function convertJoiningDate(data){
+        const date = new Date(data.dateOfJoining);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
+        const day = date.getDate().toString().padStart(2, '0');
+        const formattedDate =  year + "-" + month + "-" + day;
+        data.dateOfJoining = formattedDate;
+        convertExpiryDate(data);
+    }
+
+
+    function convertExpiryDate(data){
+        const date = new Date(data.membershipExpiry);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
+        const day = date.getDate().toString().padStart(2, '0');
+        const formattedDate =  year + "-" + month + "-" + day;
+        data.membershipExpiry = formattedDate;
+        setProfile(data);
     }
 
     return (
