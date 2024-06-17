@@ -28,14 +28,14 @@ function AllMembers(){
     }
 
     return (
-        <div className="smallBox17 col-md-9">
+        <div className="smallBox17 col-md-12">
                 <div className="smallBox21">
                     <ul className="smallBox22 nav">
                         <li className="nav-item highlight smallBox23">
-                            <Link className="nav-link textDecoGreen smallBox23" to="/menu/customerBeneficiaries">All Beneficiaries</Link>
+                            <Link className="nav-link textDecoGreen smallBox23" to="/allMembers">All Members</Link>
                         </li>
                         <li className="nav-item highlight smallBox23">
-                            <Link className="nav-link textDecoWhite smallBox23" to="/menu/addBeneficiary">Add Beneficiary</Link>
+                            <Link className="nav-link textDecoWhite smallBox23" to="/addMembers">Add Member</Link>
                         </li>
                     </ul>
                     {error ? 
@@ -45,7 +45,7 @@ function AllMembers(){
                     </div> :
                     <div className="scrolling">
                         {beneficiaries.map(beneficiary =>
-                        <Member key = {beneficiary.beneficiaryID} beneficiary = {beneficiary}/>
+                        <Member key = {beneficiary.memberID} beneficiary = {beneficiary}/>
                         )}
                     </div>}
                 </div>
