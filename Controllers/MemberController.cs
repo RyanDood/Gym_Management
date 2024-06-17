@@ -2,6 +2,7 @@
 using Gym_Management.Interfaces;
 using Gym_Management.Models;
 using Gym_Management.Models.DTOs;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace Gym_Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("GymManagementPolicy")]
     public class MemberController : ControllerBase
     {
         private readonly IMemberAdminService _memberService;

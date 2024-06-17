@@ -5,11 +5,13 @@ using Gym_Management.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Gym_Management.Interfaces;
+using Microsoft.AspNetCore.Cors;
 
 namespace Gym_Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("GymManagementPolicy")]
     public class UserController : ControllerBase
     {
 
@@ -22,7 +24,7 @@ namespace Gym_Management.Controllers
 
         [Route("Login")]
         [HttpPost]
-        public async Task<ActionResult<LoginUserDTO>> Login(LoginUserDTO loginUserDTO)
+        public async Task<ActionResult<LoginSucessDTO>> Login(LoginUserDTO loginUserDTO)
         {
             try
             {

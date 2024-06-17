@@ -5,6 +5,6 @@ namespace Gym_Management.Interfaces
 {
     public interface IUserAdminService
     {
-        public Task<LoginUserDTO> LoginUser(LoginUserDTO loginUserDTO);
+        public Task<LoginSucessDTO> LoginUser(LoginUserDTO loginUserDTO);
     }
 }

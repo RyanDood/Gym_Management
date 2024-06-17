@@ -19,6 +19,14 @@ builder.Services.AddDbContext<GymManagementContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnectionString"));
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("GymManagementPolicy", opts =>
+    {
+        opts.WithOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:3003", "http://localhost:3004", "http://localhost:3005", "http://localhost:3006", "http://localhost:3007").AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
 builder.Services.AddScoped<IRepository<int, User>, UserRepository>();
 builder.Services.AddScoped<IRepository<int, Member>, MemberRepository>();
 
@@ -34,6 +42,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("GymManagementPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -43,7 +43,7 @@ namespace Gym_Management.Repositories
 
         public async Task<Member?> Get(int key)
         {
-            var foundedMember = await _gymManagementContext.Members.FirstOrDefaultAsync(user => user.UserID == key);
+            var foundedMember = await _gymManagementContext.Members.Include(member => member.User).FirstOrDefaultAsync(user => user.UserID == key);
             if (foundedMember == null)
             {
                 _loggerMemberRepository.LogInformation($"Member Not Found");

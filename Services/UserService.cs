@@ -19,7 +19,7 @@ namespace Gym_Management.Services
             _membersRepository = membersRepository;
         }
 
-        public async Task<LoginUserDTO> LoginUser(LoginUserDTO loginUserDTO)
+        public async Task<LoginSucessDTO> LoginUser(LoginUserDTO loginUserDTO)
         {
             var allUsers = await _usersRepository.GetAll();
             var foundedUser = allUsers.FirstOrDefault(user => user.UserName == loginUserDTO.UserName);
@@ -31,7 +31,11 @@ namespace Gym_Management.Services
             {
                 throw new PasswordMismatchException("Incorrect Password Entered");  
             }
-            return loginUserDTO;
+            LoginSucessDTO login = new LoginSucessDTO();
+            login.MemberID = foundedUser.UserID;
+            login.UserName = loginUserDTO.UserName;
+            login.isAdmin = foundedUser.isAdmin;
+            return login;
 
         }
     }
