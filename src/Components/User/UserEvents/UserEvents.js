@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import "../../../../src/Components/style.css"
 import { Link, useNavigate } from 'react-router-dom';
 import Event from '../Event/Event';
+import UserEvent from '../EventU/UserEvent';
+import { useSelector } from 'react-redux';
 
-function AllEvents(){
+function UserEvents(){
 
     var [error,setError]= useState(false);
     var [errorMessage,setErrorMessage]= useState("");
@@ -14,8 +16,10 @@ function AllEvents(){
         allBeneficiaries();
     },[])
 
+    var userID = sessionStorage.getItem('memberID');
+
     async function allBeneficiaries(){
-        await axios.get('https://localhost:7147/api/Event/GetAllEvents').then(function (response) {
+        await axios.get('https://localhost:7147/api/Registration/GetAllEventsFromUsers?userID=' + userID).then(function (response) {
             setBeneficiaries(response.data);
             setError(false);
         })
@@ -31,10 +35,10 @@ function AllEvents(){
                 <div className="smallBox21">
                     <ul className="smallBox22 nav">
                     <li className="nav-item highlight smallBox23">
-                            <Link className="nav-link textDecoGreen smallBox23" to="/allevents">All Events</Link>
+                            <Link className="nav-link textDecoWhite smallBox23" to="/allevents">All Events</Link>
                         </li>
                         <li className="nav-item highlight smallBox23">
-                            <Link className="nav-link textDecoWhite smallBox23" to="/userevents">Your Events</Link>
+                            <Link className="nav-link textDecoGreen smallBox23" to="/userevents">Your Events</Link>
                         </li>
                         <li className="nav-item highlight smallBox23">
                             <Link className="nav-link textDecoWhite smallBox23" to="/">Signout</Link>
@@ -47,7 +51,7 @@ function AllEvents(){
                     </div> :
                     <div className="scrolling">
                         {beneficiaries.map(beneficiary =>
-                        <Event key = {beneficiary.eventID} beneficiary = {beneficiary}/>
+                        <UserEvent key = {beneficiary.eventID} beneficiary = {beneficiary}/>
                         )}
                     </div>}
                 </div>
@@ -55,4 +59,4 @@ function AllEvents(){
     )
 }
 
-export default AllEvents;
+export default UserEvents;

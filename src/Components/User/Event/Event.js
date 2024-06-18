@@ -1,18 +1,43 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { updateAccountID } from "../../../accountSlice";
+import axios from "axios";
 
-function Member(props) {
+function Event(props) {
 
     var dispatch = useDispatch();
-    var navigate = useNavigate();
+    var userID = sessionStorage.getItem('memberID');
+    var eventID = useSelector((state) => state.accountID);
+
 
     function updateAccountId() {
-        navigate("/viewMember");
         dispatch(
             updateAccountID(props.beneficiary.eventID)
         );
+        ask(props.beneficiary.eventID);
     }
+
+    
+    function ask(data){
+        console.log(userID)
+        console.log(data)
+        var newUser = {
+            "userID": userID,
+            "eventID": data
+          }
+        if(window.confirm("Are you sure you want to register")){
+            registerUser(newUser);
+        }
+    }
+
+    async function registerUser(newUser){
+        await axios.post('https://localhost:7147/api/Registration/EventRegister',newUser).then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                alert(error.response.data);
+            })
+    }
+
 
     const date = new Date(props.beneficiary.date);
     const year = date.getFullYear();
@@ -28,7 +53,7 @@ function Member(props) {
                 <div className="smallBox23">
                 <span className="clickRegisterText">Description: {props.beneficiary.description}</span>
                     <span className="pointer" onClick={updateAccountId}>
-                        <div className="rightArrow2 yellow"></div>
+                        <div className="nav-link textDecoGreen">Register</div>
                     </span>
                 </div>
                 <span className="clickRegisterText">Date: {props.beneficiary.date}</span>
@@ -40,4 +65,4 @@ function Member(props) {
     );
 }
 
-export default Member;
+export default Event;

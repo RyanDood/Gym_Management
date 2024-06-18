@@ -26,7 +26,7 @@ function Login(){
     async function login(){
         await axios.post('https://localhost:7147/api/User/Login',enter).then(function (response) {
                 setError(false);
-                sessionStorage.setItem("memberID",response.data.memberID);
+                sessionStorage.setItem("memberID",response.data.userID);
                 navigateToHome(response.data);
             })
             .catch(function (error) {

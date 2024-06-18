@@ -8,6 +8,7 @@ import Profile from './Components/User/Profile/Profile';
 import AddNewMember from './Components/Admin/AddNewMember/AddNewMember';
 import ViewMember from './Components/Admin/ViewMember/ViewMember';
 import AllEvents from './Components/User/AllEvents/AllEvents';
+import UserEvents from './Components/User/UserEvents/UserEvents';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="viewMember" element={<ViewMember/>}/>
             <Route path="profile" element={<Profile/>}/>
             <Route path="allevents" element={<AllEvents/>}/>
+            <Route path="userevents" element={<UserEvents/>}/>
         </Routes>
     </BrowserRouter>
   );
