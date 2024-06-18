@@ -130,15 +130,12 @@ function Profile() {
                                 <input className="form-control enterDiv2" type="text" value={profile.user.userName}></input>
                             </div>
                             <div className="margin1">
-                                <span className="clickRegisterText">Email</span>
-                                <input className="form-control enterDiv2" type="text" value={profile.user.email}></input>
-                            </div>
-                        </div>
-                        <div className="smallBox19">
-                            <div className="margin1">
                                 <span className="clickRegisterText">Name</span>
                                 <input className="form-control enterDiv2" type="text" value={profile.name} onChange={nameValidation}></input>
                             </div>
+                        </div>
+                        <div className="smallBox19">
+                            
                             <div className="margin1">
                                 <span className="clickRegisterText">Phone Number</span>
                                 <input className="form-control enterDiv2" type="text" value={profile.phone} onChange={phoneValidation}></input>

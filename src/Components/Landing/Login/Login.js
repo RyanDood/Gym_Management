@@ -24,7 +24,7 @@ function Login(){
       }
 
     async function login(){
-        await axios.post('https://localhost:7173/api/User/Login',enter).then(function (response) {
+        await axios.post('https://localhost:7147/api/User/Login',enter).then(function (response) {
                 setError(false);
                 sessionStorage.setItem("memberID",response.data.memberID);
                 navigateToHome(response.data);
@@ -44,7 +44,7 @@ function Login(){
         }
         else{
             setTimeout(() => {
-                navigate("/profile");
+                navigate("/allevents");
             }, 2000);
         }
     }

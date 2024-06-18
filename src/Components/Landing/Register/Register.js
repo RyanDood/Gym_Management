@@ -19,14 +19,12 @@ function Register(){
     var newUser = {
         "userName": userName,
         "password": password,
-        "email": email,
         "name": name,
-        "phone": phoneNumber
-    }
+        "isAdmin": admin
+      }
 
     async function registerUser(){
-        if(admin){
-            await axios.post('https://localhost:7173/api/Member/AddMemberAdmin',newUser).then(function (response) {
+        await axios.post('https://localhost:7147/api/User/Register',newUser).then(function (response) {
                 setError(false);
                 navigateToLogin();
             })
@@ -35,28 +33,11 @@ function Register(){
                 setError(true);
                 setErrorMessage(error.response.data);
             })
-        }
-        else{
-            await axios.post('https://localhost:7173/api/Member/AddMemberUser',newUser).then(function (response) {
-                setError(false);
-                navigateToLogin();
-            })
-            .catch(function (error) {
-                console.log(error);
-                setError(true);
-                setErrorMessage(error.response.data);
-            })
-        }
     }
 
     function checkUserNameValidation(eventargs){
         var username = eventargs.target.value;
         setUserName(username)
-    }
-
-    function checkEmailValidation(eventargs){
-        var email = eventargs.target.value;
-        setEmail(email)
     }
 
     function checkAdminValidation(eventargs){
@@ -164,16 +145,8 @@ function Register(){
                                     <input className="form-control enterDiv" type="password" onChange={confirmPasswordValidation}></input>
                                 </div>
                                 <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">Email</span>
-                                    <input className="form-control enterDiv" type="email" value={email} onChange={checkEmailValidation}></input>
-                                </div>
-                                <div className="marginRegisterCustomer">
                                     <span className="clickRegisterText">Name</span>
                                     <input className="form-control enterDiv" type="text" value={name} onChange={nameValidation}></input>
-                                </div>
-                                <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">Phone Number</span>
-                                    <input className="form-control enterDiv" type="number"  value={phoneNumber} onChange={phoneValidation}></input>
                                 </div>
                                 <div className="marginRegisterCustomer">
                                     <span className="clickRegisterText">Registering as</span>

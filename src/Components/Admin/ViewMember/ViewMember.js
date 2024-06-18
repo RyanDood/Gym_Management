@@ -10,28 +10,16 @@ function ViewMember(){
 
     var [profile,setProfile] = useState(
         {
-            "memberID": "",
-            "name": "",
-            "phone": "",
-            "membershipExpiry": "",
-            "dateOfJoining": "",
-            "userID": "",
-            "user": {
-              "userID": "",
-              "userName": "",
-              "password": "",
-              "email": "",
-              "isAdmin": ""
-            }
+            "eventID": "",
+            "title": "string",
+            "description": "string",
+            "date": "2024-06-18T07:52:31.873Z",
+            "location": "string",
+            "maxAttendees": 0,
+            "registrationFee": 0
           })
 
     var memberID = useSelector((state) => state.accountID);
-
-    var updateCustomer = {
-        "memberID": memberID,
-        "name": profile.name,
-        "phone": profile.phone,
-    }
 
 
     useEffect(() => {
@@ -44,7 +32,7 @@ function ViewMember(){
     },[])
 
     async function getCustomerDetails(memberID){
-        await axios.get('https://localhost:7173/api/Member/GetMember?memberID=' + memberID)
+        await axios.get('https://localhost:7147/api/Event/GetEvent?eventID=' + memberID)
         .then(function (response) {
             setProfile(response.data);
             convertJoiningDate(response.data);
@@ -55,7 +43,7 @@ function ViewMember(){
     }
 
     async function updateCustomerDetails() {
-        await axios.put('https://localhost:7173/api/Member/UpdateMember', updateCustomer)
+        await axios.put('https://localhost:7147/api/Event/UpdateEvent', profile)
         .then(function (response) {
             console.log("Updated");
         })
@@ -65,7 +53,7 @@ function ViewMember(){
     }
     
     async function closeAccount(){
-        await axios.delete('https://localhost:7173/api/Member/DeleteMember?memberID=' + profile.memberID)
+        await axios.delete('https://localhost:7147/api/Event/DeleteEvent?eventID=' + profile.eventID)
         .then(function (response) {
             console.log("Deleted Successfully");
         })
@@ -83,34 +71,43 @@ function ViewMember(){
         }
     }
 
-    function nameValidation(eventargs){
+    function titeValidation(eventargs){
         var name = eventargs.target.value;
-        setProfile({...profile,name:name});
+        setProfile({...profile,title:name});
     }
 
-    function phoneValidation(eventargs){
+    function descriptionValidation(eventargs){
         var phoneNumber = eventargs.target.value;
-        setProfile({...profile,phone:phoneNumber});
+        setProfile({...profile,description:phoneNumber});
+    }
+
+    function dateValidation(eventargs){
+        var phoneNumber = eventargs.target.value;
+        setProfile({...profile,date:phoneNumber});
+    }
+
+    function locationValidation(eventargs){
+        var phoneNumber = eventargs.target.value;
+        setProfile({...profile,location:phoneNumber});
+    }
+
+    function maxValidation(eventargs){
+        var phoneNumber = eventargs.target.value;
+        setProfile({...profile,maxAttendees:phoneNumber});
+    }
+
+    function registrationValidation(eventargs){
+        var phoneNumber = eventargs.target.value;
+        setProfile({...profile,registrationFee:phoneNumber});
     }
 
     function convertJoiningDate(data){
-        const date = new Date(data.dateOfJoining);
+        const date = new Date(data.date);
         const year = date.getFullYear();
         const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
         const day = date.getDate().toString().padStart(2, '0');
         const formattedDate =  year + "-" + month + "-" + day;
-        data.dateOfJoining = formattedDate;
-        convertExpiryDate(data);
-    }
-
-
-    function convertExpiryDate(data){
-        const date = new Date(data.membershipExpiry);
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
-        const day = date.getDate().toString().padStart(2, '0');
-        const formattedDate =  year + "-" + month + "-" + day;
-        data.membershipExpiry = formattedDate;
+        data.date = formattedDate;
         setProfile(data);
     }
 
@@ -131,32 +128,32 @@ function ViewMember(){
                 <div>
                     <div className="smallBox19"> 
                         <div className="margin1">
-                            <span className="clickRegisterText">UserName</span>
-                            <input className="form-control enterDiv2" type="text" value={profile.user.userName}></input>
+                            <span className="clickRegisterText">Title</span>
+                            <input className="form-control enterDiv2" type="text" value={profile.title} onChange={titeValidation}></input>
                         </div>
                         <div className="margin1">
-                            <span className="clickRegisterText">Email</span>
-                            <input className="form-control enterDiv2" type="text" value={profile.user.email}></input>
-                        </div>
-                    </div>
-                    <div className="smallBox19"> 
-                        <div className="margin1">
-                            <span className="clickRegisterText">Name</span>
-                            <input className="form-control enterDiv2" type="text" value={profile.name} onChange={nameValidation}></input>
-                        </div>
-                        <div className="margin1">
-                            <span className="clickRegisterText">Phone Number</span>
-                            <input className="form-control enterDiv2" type="text" value={profile.phone} onChange={phoneValidation}></input>
+                            <span className="clickRegisterText">Description</span>
+                            <input className="form-control enterDiv2" type="text" value={profile.description} onChange={descriptionValidation}></input>
                         </div>
                     </div>
                     <div className="smallBox19"> 
                         <div className="margin1">
-                            <span className="clickRegisterText">Joining Date</span>
-                            <input className="form-control enterDiv2" type="text" value={profile.dateOfJoining}></input>
+                            <span className="clickRegisterText">Date</span>
+                            <input className="form-control enterDiv2" type="date" value={profile.date} onChange={dateValidation}></input>
                         </div>
                         <div className="margin1">
-                            <span className="clickRegisterText">Expiration Date</span>
-                            <input className="form-control enterDiv2" type="text" value={profile.membershipExpiry}></input>
+                            <span className="clickRegisterText">Location</span>
+                            <input className="form-control enterDiv2" type="text" value={profile.location} onChange={locationValidation}></input>
+                        </div>
+                    </div>
+                    <div className="smallBox19"> 
+                        <div className="margin1">
+                            <span className="clickRegisterText">Max Members</span>
+                            <input className="form-control enterDiv2" type="number" value={profile.maxAttendees} onChange={maxValidation} ></input>
+                        </div>
+                        <div className="margin1">
+                            <span className="clickRegisterText">Registration Fee</span>
+                            <input className="form-control enterDiv2" type="number" value={profile.registrationFee} onChange={registrationValidation}></input>
                         </div>
                     </div>
                 </div>

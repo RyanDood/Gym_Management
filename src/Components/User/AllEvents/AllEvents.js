@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import "../../../../src/Components/style.css"
 import { Link, useNavigate } from 'react-router-dom';
-import Member from '../Member/Member';
+import Event from '../Event/Event';
 
-function AllMembers(){
+function AllEvents(){
 
     var [error,setError]= useState(false);
     var [errorMessage,setErrorMessage]= useState("");
@@ -32,12 +32,6 @@ function AllMembers(){
                 <div className="smallBox21">
                     <ul className="smallBox22 nav">
                         <li className="nav-item highlight smallBox23">
-                            <Link className="nav-link textDecoGreen smallBox23" to="/allMembers">All Events</Link>
-                        </li>
-                        <li className="nav-item highlight smallBox23">
-                            <Link className="nav-link textDecoWhite smallBox23" to="/addMembers">Add Event</Link>
-                        </li>
-                        <li className="nav-item highlight smallBox23">
                             <Link className="nav-link textDecoWhite smallBox23" to="/">Signout</Link>
                         </li>
                     </ul>
@@ -48,7 +42,7 @@ function AllMembers(){
                     </div> :
                     <div className="scrolling">
                         {beneficiaries.map(beneficiary =>
-                        <Member key = {beneficiary.memberID} beneficiary = {beneficiary}/>
+                        <Event key = {beneficiary.memberID} beneficiary = {beneficiary}/>
                         )}
                     </div>}
                 </div>
@@ -56,4 +50,4 @@ function AllMembers(){
     )
 }
 
-export default AllMembers;
+export default AllEvents;

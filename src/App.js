@@ -7,6 +7,7 @@ import AllMembers from './Components/Admin/AllMembers/AllMembers';
 import Profile from './Components/User/Profile/Profile';
 import AddNewMember from './Components/Admin/AddNewMember/AddNewMember';
 import ViewMember from './Components/Admin/ViewMember/ViewMember';
+import AllEvents from './Components/User/AllEvents/AllEvents';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="addMembers" element={<AddNewMember/>}/>
             <Route path="viewMember" element={<ViewMember/>}/>
             <Route path="profile" element={<Profile/>}/>
+            <Route path="allevents" element={<AllEvents/>}/>
         </Routes>
     </BrowserRouter>
   );

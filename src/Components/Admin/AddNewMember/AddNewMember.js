@@ -5,28 +5,27 @@ import axios from 'axios';
 
 function AddNewMember(){
 
-    var [userName,setUserName]= useState("");
-    var [password,setPassword]= useState("");
-    var [email,setEmail]= useState("");
-    var [confirmPassword,setConfirmPassword]= useState(""); 
-    var [name,setName]= useState(""); 
-    var [phoneNumber,setPhoneNumber]  = useState("");
+    var [title,setTitle]= useState("");
+    var [description,setDescription]= useState("");
+    var [date,setDate]= useState("");
+    var [location,setLocation]= useState(""); 
+    var [maxAttendees,setMaxAttendees]= useState(""); 
+    var [registrationFee,setRegistrationFee]  = useState("");
     var [error,setError]= useState(false);
     var [errorMessage,setErrorMessage]= useState("");
-    var [admin,setAdmin]= useState(true);
     var navigate = useNavigate();
 
     var newUser = {
-        "userName": userName,
-        "password": password,
-        "email": email,
-        "name": name,
-        "phone": phoneNumber
-    }
+        "title": title,
+        "description": description,
+        "date": date,
+        "location": location,
+        "maxAttendees": maxAttendees,
+        "registrationFee": registrationFee
+      }
 
     async function registerUser(){
-        if(admin){
-            await axios.post('https://localhost:7173/api/Member/AddMemberAdmin',newUser).then(function (response) {
+        await axios.post('https://localhost:7147/api/Event/AddEvent',newUser).then(function (response) {
                 setError(false);
                 navigateToLogin();
             })
@@ -35,97 +34,38 @@ function AddNewMember(){
                 setError(true);
                 setErrorMessage(error.response.data);
             })
-        }
-        else{
-            await axios.post('https://localhost:7173/api/Member/AddMemberUser',newUser).then(function (response) {
-                setError(false);
-                navigateToLogin();
-            })
-            .catch(function (error) {
-                console.log(error);
-                setError(true);
-                setErrorMessage(error.response.data);
-            })
-        }
     }
 
     function checkUserNameValidation(eventargs){
-        var username = eventargs.target.value;
-        setUserName(username)
+        var title = eventargs.target.value;
+        setTitle(title)
     }
 
     function checkEmailValidation(eventargs){
         var email = eventargs.target.value;
-        setEmail(email)
+        setDescription(email)
     }
 
     function checkAdminValidation(eventargs){
-        var admin = eventargs.target.value;
-        if(admin == "Admin"){
-            setAdmin(true);
-        }
-        else{
-            setAdmin(false)
-        }
+        var email = eventargs.target.value;
+        setDate(email)
     }
 
-
-
-    function checkPasswordValidation(eventargs){
-        var password = eventargs.target.value;
-        setPassword(password);
-        if(password !== ""){
-            if(password.length >= 8 && password.length <= 15){
-                setError(false);
-                if(userName !== ""){
-                    document.getElementById("registerButton").classList.remove("disabled");
-                }
-            }
-            else{
-                document.getElementById("registerButton").classList.add("disabled");
-                setError(true);
-                setErrorMessage("Password length should be between 8-15 characters");
-            }
-        }
-        else{
-            document.getElementById("registerButton").classList.add("disabled");
-            setError(true);
-            setErrorMessage("Password cannot be empty");
-        }
+    function checkMaxValidation(eventargs){
+        var email = eventargs.target.value;
+        setMaxAttendees(email)
     }
 
-    function confirmPasswordValidation(eventargs){
-        var confirmPassword = eventargs.target.value;
-        setConfirmPassword(confirmPassword);
-        if(confirmPassword !== ""){
-            if(password === confirmPassword){
-                setError(false);
-                if(userName !== "" && password !== "" && confirmPassword !== ""){
-                    document.getElementById("registerButton").classList.remove("disabled");
-                }
-            }
-            else{
-                document.getElementById("registerButton").classList.add("disabled");
-                setError(true);
-                setErrorMessage("Passwords do not match");
-            }
-        }
-        else{
-            document.getElementById("registerButton").classList.add("disabled");
-            setError(true);
-            setErrorMessage("Confirm Password cannot be empty");
-        }
+    function checkFeeValidation(eventargs){
+        var email = eventargs.target.value;
+        setRegistrationFee(email)
     }
 
-    function nameValidation(eventargs){
-        var name = eventargs.target.value;
-        setName(name);
+    function checkLocationValidation(eventargs){
+        var email = eventargs.target.value;
+        setLocation(email)
     }
 
-    function phoneValidation(eventargs){
-        var phoneNumber = eventargs.target.value;
-        setPhoneNumber(phoneNumber);
-    }
 
     function navigateToLogin(){
         alert("Added Successfully")
@@ -147,44 +87,37 @@ function AddNewMember(){
                                     <span className="clickRegisterText2">Maverick</span>
                                 </div>
                             </div>
-                            <span className="welcomeText3 marginRegisterCustomer">Add Member</span>
+                            <span className="welcomeText3 marginRegisterCustomer">Add Event</span>
                             <div className="scrolling">
                                 <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">UserName</span>
-                                    <input className="form-control enterDiv" type="email" value={userName} onChange={checkUserNameValidation}></input>
+                                    <span className="clickRegisterText">Title</span>
+                                    <input className="form-control enterDiv" type="text" value={title} onChange={checkUserNameValidation}></input>
                                 </div>
                                 <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">Password</span>
-                                    <input className="form-control enterDiv" type="password" onChange={checkPasswordValidation}></input>
+                                    <span className="clickRegisterText">Description</span>
+                                    <input className="form-control enterDiv" type="text" value={description}  onChange={checkEmailValidation}></input>
                                 </div>
                                 <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">Confirm Password</span>
-                                    <input className="form-control enterDiv" type="password" onChange={confirmPasswordValidation}></input>
+                                    <span className="clickRegisterText">Date</span>
+                                    <input className="form-control enterDiv" type="date" value={date} onChange={checkAdminValidation}></input>
                                 </div>
                                 <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">Email</span>
-                                    <input className="form-control enterDiv" type="email" value={email} onChange={checkEmailValidation}></input>
+                                    <span className="clickRegisterText">Location</span>
+                                    <input className="form-control enterDiv" type="text" value={location}  onChange={checkLocationValidation}></input>
                                 </div>
                                 <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">Name</span>
-                                    <input className="form-control enterDiv" type="text" value={name} onChange={nameValidation}></input>
+                                    <span className="clickRegisterText">Max Attendees</span>
+                                    <input className="form-control enterDiv" type="number" value={maxAttendees}  onChange={checkMaxValidation}></input>
                                 </div>
                                 <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">Phone Number</span>
-                                    <input className="form-control enterDiv" type="number"  value={phoneNumber} onChange={phoneValidation}></input>
-                                </div>
-                                <div className="marginRegisterCustomer">
-                                    <span className="clickRegisterText">Registering as</span>
-                                    <select className="form-control enterDiv" onChange={checkAdminValidation}>
-                                        <option value="Admin">Admin</option>
-                                        <option value="User">User</option>
-                                    </select>
+                                    <span className="clickRegisterText">Registration Fee</span>
+                                    <input className="form-control enterDiv" type="number"  value={registrationFee} onChange={checkFeeValidation}></input>
                                 </div>
                             </div>
                         </div>
                         {error ? <div className='flexRow margin6 errorText'>{errorMessage}</div> : null}
                         <div className="smallBox8">
-                            <a id="registerButton"  onClick = {registerUser} className="btn btn-outline-warning smallBox9 disabled">
+                            <a id="registerButton"  onClick = {registerUser} className="btn btn-outline-warning smallBox9">
                                 <span>Register</span>
                             </a>
                         </div>

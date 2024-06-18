@@ -22,16 +22,19 @@ function Member(props) {
     props.beneficiary.date = formattedDate;
 
     return (
-        <div className="whiteOutlineBox8">
+        <div className="whiteOutlineBox75">
             <div className="whiteOutlineBoxMargin">
                 <span className="clickRegisterText">Title: {props.beneficiary.title}</span>
                 <div className="smallBox23">
-                    <span className="clickRegisterText">Date: {props.beneficiary.date}</span>
+                <span className="clickRegisterText">Description: {props.beneficiary.description}</span>
                     <span className="pointer" onClick={updateAccountId}>
                         <div className="rightArrow2 yellow"></div>
                     </span>
                 </div>
+                <span className="clickRegisterText">Date: {props.beneficiary.date}</span>
                 <span className="clickRegisterText">Location: {props.beneficiary.location}</span>
+                <span className="clickRegisterText">MaxAttendees: {props.beneficiary.maxAttendees}</span>
+                <span className="clickRegisterText">Fee: {props.beneficiary.registrationFee}</span>
             </div>
         </div>
     );

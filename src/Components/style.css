@@ -1173,6 +1173,18 @@ hr{
         margin-bottom: 20px;
     }
 
+    .whiteOutlineBox75{
+        width: 593px;
+        height: 230px;
+        background: rgb(73,73,73);
+        border: 1px solid rgb(120 120 120);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
     
     .whiteOutlineBox3{
         width: 560px;
