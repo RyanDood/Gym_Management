@@ -1102,6 +1102,13 @@ hr{
         justify-content: space-between;
     }
 
+    .smallBox260{
+        height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
     .smallBox19{
         width: 577px;
         display: flex;

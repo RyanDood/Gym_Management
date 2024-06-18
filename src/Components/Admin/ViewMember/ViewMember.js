@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react';
 import "../../../../src/Components/style.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Member from '../Member/Member';
+import AllUsers from '../AllUsers/AllUsers';
 
 function ViewMember(){
     
     var navigate = useNavigate();
+    var [beneficiaries,setBeneficiaries] = useState([]);
 
     var [profile,setProfile] = useState(
         {
@@ -28,6 +31,7 @@ function ViewMember(){
         }
         else{
             getCustomerDetails(memberID);
+            getUsers(memberID);
         }
     },[])
 
@@ -45,7 +49,7 @@ function ViewMember(){
     async function updateCustomerDetails() {
         await axios.put('https://localhost:7147/api/Event/UpdateEvent', profile)
         .then(function (response) {
-            console.log("Updated");
+            alert("Updated");
         })
         .catch(function (error) {
             console.log(error);
@@ -55,7 +59,17 @@ function ViewMember(){
     async function closeAccount(){
         await axios.delete('https://localhost:7147/api/Event/DeleteEvent?eventID=' + profile.eventID)
         .then(function (response) {
-            console.log("Deleted Successfully");
+            alert("Deleted Successfully");
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    async function getUsers(memberID){
+        await axios.get('https://localhost:7147/api/Registration/GetAllUsersFromEvent?eventID=' + memberID)
+        .then(function (response) {
+            setBeneficiaries(response.data);
         })
         .catch(function (error) {
             console.log(error);
@@ -113,7 +127,7 @@ function ViewMember(){
 
     return (
         <div className="smallBox17 col-sm-12">
-            <div className="smallBox18">
+            <div className="smallBox260">
             <div className="upMargin3">
                         <Link to = "/allMembers">
                             <div className="leftArrow yellow"></div>
@@ -158,6 +172,11 @@ function ViewMember(){
                     </div>
                 </div>
                 <span  className="btn btn-outline-warning smallBox9 margin1" onClick={updateCustomerDetails}>Update</span>
+                <div className="scrolling">
+                        {beneficiaries.map(beneficiary =>
+                        <AllUsers key = {beneficiary.userID} beneficiary = {beneficiary}/>
+                        )}
+                    </div>
             </div>
         </div>
     );
